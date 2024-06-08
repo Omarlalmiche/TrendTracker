@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/stylelog.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <img src="../static/images/logo.webp" alt="Trend Tracker Logo" style="height: 50px; vertical-align: middle;">
+            <span class="logo-text">Trend Tracker</span>
+        </div>
+    </header>
+
+    <main class="main">
+        <div class="form-structor">
+            <div class="signup">
+                <h2 class="form-title" id="signup"><span>or</span>Sign up</h2>
+                <div class="form-holder">
+                    <form method="post" action="{{ url_for('register') }}">
+                        <input type="email" name="email" class="input" placeholder="Email" required />
+                        <input type="password" name="password" class="input" placeholder="Password" required />
+                        <button class="submit-btn" type="submit">Sign up</button>
+                    </form>
+                </div>
+            </div>
+            <div class="login slide-up">
+                <div class="center">
+                    <h2 class="form-title" id="login"><span>or</span>Log in</h2>
+                    <div class="form-holder">
+                        <form method="post" action="{{ url_for('login') }}">
+                            <input type="email" name="email" class="input" placeholder="Email" required />
+                            <input type="password" name="password" class="input" placeholder="Password" required />
+                            <button class="submit-btn" type="submit">Log in</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="../static/js/main.js"></script>
+</body>
+</html>

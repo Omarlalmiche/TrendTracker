@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="/static/css/styledashboard.css">
+</head>
+<body class="white-background">
+    <div class="container">
+        <header class="header">
+            <div class="logo-container">
+                <img src="../static/images/logo.webp" alt="App Suivi Tendances Logo" class="logo">
+                <span class="title">Trend Tracker</span>
+            </div>
+        </header>
+        {% for subreddit, result in results.items() %}
+        <div class="subreddit-section">
+            <h2>{{ subreddit }}</h2>
+            <div class="carousel-container">
+                <div class="carousel" id="{{ subreddit }}Carousel">
+                    <div class="carousel-item">
+                        <h1>Sentiment Analysis of Subreddit Posts</h1>
+                        <canvas id="{{ subreddit }}SentimentChart" width="400" height="400"></canvas>
+                        <ul>
+                            <li>Positive: <span id="{{ subreddit }}PositiveCount">{{ result.sentiments.Positive }}</span> (Number of posts with positive sentiment)</li>
+                            <li>Neutral: <span id="{{ subreddit }}NeutralCount">{{ result.sentiments.Neutral }}</span> (Number of posts with neutral sentiment)</li>
+                            <li>Negative: <span id="{{ subreddit }}NegativeCount">{{ result.sentiments.Negative }}</span> (Number of posts with negative sentiment)</li>
+                        </ul>
+                        <p class="chart-description">
+                        Cette distribution montre que les discussions sur ce subreddit sont principalement neutres, avec un équilibre modéré entre les sentiments positifs et négatifs.</p>
+                    </div>
+                    <div class="carousel-item">
+                        <h4>Topics Discussed:</h4>
+                        <ul>
+                            {% for topic, keywords in result.topics.items() %}
+                                <li><strong>{{ topic }}</strong>: {{ keywords | join(', ') }} (Most frequent words related to this topic)</li>
+                            {% endfor %}
+                        </ul>
+                        <p>Ces mots indiquent que les discussions principales tournent autour de la construction, de la réparation et de l'entretien des maisons. Les utilisateurs semblent rechercher ou offrir de l'aide sur des problèmes spécifiques liés à ces sujets.</p>
+
+                        <h2>Trending Topics Graph</h2>
+                        <p>This graph shows the most common topics discussed in the subreddit.</p>
+                        <div id="{{ subreddit }}TrendingTopicsPlot"></div>
+                        <p class="chart-description">Les graphiques et les informations textuelles fournissent une vue d'ensemble claire des sentiments et des sujets de discussion dans le subreddit. La majorité des publications sont neutres, avec des discussions centrées principalement sur des sujets pratiques et techniques liés à l'entretien et à la réparation de la maison.</p>
+                    </div>
+                    <div class="carousel-item">
+                        <h2>Anomalies detected:</h2>
+                        <p>These posts received significantly more comments than the average, indicating high engagement or interest:</p>
+                        <ul>
+                            {% for post in result.anomalies %}
+                            <li>+{{ post.title }}</li>
+                            {% endfor %}
+                        </ul> 
+                        <p>Les anomalies détectées sont des publications qui ont reçu significativement plus de commentaires que la moyenne, indiquant un fort engagement ou intérêt. Voici les publications identifiées :</p>
+                        <p>Ces publications ont probablement suscité de nombreuses réactions et discussions, ce qui peut être dû à la nature des sujets abordés, qui semblent concerner des préoccupations financières ou des services coûteux.</p>
+                    </div>
+                    <div class="carousel-item">
+                        <h3>Regression Plot</h3>
+                        <p>This plot shows the linear regression line along with the training and test data points:</p>
+                        <div id="{{ subreddit }}RegressionPlot"></div>
+                        <p class="chart-description">Le graphique de régression montre la relation entre le score des publications (Post Score) et le nombre de commentaires (Number of Comments). Voici une explication détaillée :</p>
+                        <ul>
+                            <li><strong>Ligne de Régression</strong> (en vert) : Cette ligne représente la meilleure estimation linéaire de la relation entre le score des publications et le nombre de commentaires.</li>
+                            <li><strong>Points de Données d'Entraînement</strong> (en bleu) : Ce sont les données utilisées pour entraîner le modèle. La dispersion des points montre la variabilité des données d'entraînement par rapport à la ligne de régression.</li>
+                            <li><strong>Points de Données de Test</strong> (en rouge) : Ce sont les données non vues par le modèle pendant l'entraînement. Elles sont utilisées pour tester la performance du modèle.</li>
+                        </ul>
+                        <p><strong>Interprétation</strong> :</p>
+                        <ul>
+                            <li>Une ligne de régression qui monte légèrement suggère une relation positive entre le score des publications et le nombre de commentaires, mais cette relation est faible.</li>
+                            <li>La dispersion des points, particulièrement ceux loin de la ligne, indique que d'autres facteurs peuvent influencer le nombre de commentaires et que le modèle linéaire ne capture pas toute la variabilité.</li>
+                        </ul>
+                    </div>
+                    <div class="carousel-item">
+                        <h3>Predictions:</h3>
+                        <p>Scores indicating the performance of the prediction model:</p>
+                        <ul>
+                            <li>Training Score: {{ result.train_score }} (How well the model fits the training data)</li>
+                            <li>Test Score: {{ result.test_score }} (How well the model performs on unseen data)</li>
+                            <li>Cross-Validation Score: {{ result.cv_score }} (Average performance in cross-validation)</li>
+                        </ul>
+                        <p><strong>Interprétation</strong> :</p>
+                        <ul>
+                            <li><strong>Training Score élevé</strong> indique que le modèle s'ajuste bien aux données d'entraînement.</li>
+                            <li><strong>Test Score négatif</strong> indique un surapprentissage, où le modèle ne performe pas bien sur des nouvelles données.</li>
+                            <li><strong>Cross-Validation Score</strong> montre une performance moyenne, mais l'écart avec le Test Score suggère que des améliorations sont nécessaires pour éviter l'overfitting.</li>
+                        </ul>
+                    </div>
+                    <div class="carousel-item">
+                        <h3>PCA Plot</h3>
+                        <p>This plot shows the projection of the data onto the first two principal components:</p>
+                        <div id="{{ subreddit }}PCAPlot"></div>
+                        <p class="chart-description">Explained Variance Ratio: {{ result.explained_variance_ratio | join(', ') }}</p>
+                        <p>Interprétation des Composantes Principales
+                            PC1 (Composante Principale 1) : Capture 96.46% de la variance totale des données.
+                            PC2 (Composante Principale 2) : Capture 3.54% de la variance totale des données.</p>
+                        <p>Observation des Anomalies
+                            Les publications se trouvent éloignées du centre de la distribution, ce qui indique qu'elles sont des anomalies par rapport aux autres publications. Cela reflète leur contenu unique ou leur forte interaction, comme le nombre de commentaires élevés.</p>
+                    </div>
+                    <div class="carousel-item">
+                        <h3>Time Series Analysis</h3>
+                        <p>Number of posts over time:</p>
+                        <div id="{{ subreddit }}DailyPostsPlot"></div>
+                        <p class="chart-description">Interprétation
+                        Augmentation Progressive : Le nombre de publications augmente progressivement jusqu'au 1er juin 2024, indiquant une période d'activité accrue ou un événement spécifique qui a suscité plus de discussions et d'engagement.
+                        Pic d'Activité : Le pic d'environ 30 publications le 1er juin 2024 pourrait correspondre à un événement ou un sujet particulièrement intéressant ou controversé qui a provoqué une hausse soudaine des publications.
+                        Diminution Progressive : Après le pic, le nombre de publications diminue progressivement, ce qui pourrait indiquer que l'intérêt pour le sujet ou l'événement en question a diminué.</p>
+                    </div>
+
+                    <div class="carousel-item">
+                        <h3>Correlation Matrix Heatmap</h3>
+                        <p>This heatmap shows the correlation between different features of the posts.</p>
+                        <div id="{{ subreddit }}CorrelationHeatmap"></div>
+                        <p class="chart-description">La heatmap de corrélation révèle une relation relativement faible entre le score des publications et le nombre de commentaires sur ce subreddit. Cette découverte suggère que le score et les commentaires sont influencés par des dynamiques différentes, et que l'un ne peut pas être utilisé comme un indicateur fiable de l'autre. Pour obtenir une vue d'ensemble plus complète de l'engagement des utilisateurs, il serait utile d'examiner d'autres facteurs ou métriques, comme la longueur du texte de la publication, la présence de médias, ou le sujet de la discussion.</p>
+                    </div>
+                </div>
+                <button class="prev" onclick="moveCarousel('{{ subreddit }}Carousel', -1)">&#10094;</button>
+                <button class="next" onclick="moveCarousel('{{ subreddit }}Carousel', 1)">&#10095;</button>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <form method="POST" action="/download_report">
+        <button type="submit" class="download-btn">Download Report</button>
+    </form>
+
+    <script>
+        const results = {{ results | tojson }};
+        
+        for (let subreddit in results) {
+            const sentiments = results[subreddit].sentiments;
+
+            const ctx = document.getElementById(`${subreddit}SentimentChart`).getContext('2d');
+            const sentimentChart = new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: Object.keys(sentiments),
+                    datasets: [{
+                        label: 'Sentiment Analysis',
+                        data: Object.values(sentiments),
+                        backgroundColor: ['#34c759', '#5856d6', '#ff3b30']
+                    }]
+                },
+                options: {
+                    responsive: false,
+                    maintainAspectRatio: false
+                }
+            });
+
+            const trendingTopicsPlot = document.getElementById(`${subreddit}TrendingTopicsPlot`);
+            const trendingTopicsPlotly = results[subreddit].trending_topics_plotly;
+            if (trendingTopicsPlotly) {
+                Plotly.newPlot(trendingTopicsPlot, JSON.parse(trendingTopicsPlotly).data, JSON.parse(trendingTopicsPlotly).layout);
+            }
+
+            const regressionPlot = document.getElementById(`${subreddit}RegressionPlot`);
+            const regressionPlotly = results[subreddit].regression_plot_json;
+            if (regressionPlotly) {
+                Plotly.newPlot(regressionPlot, JSON.parse(regressionPlotly).data, JSON.parse(regressionPlotly).layout);
+            }
+
+            const pcaPlot = document.getElementById(`${subreddit}PCAPlot`);
+            const pcaPlotly = results[subreddit].pca_plot_json;
+            if (pcaPlotly) {
+                Plotly.newPlot(pcaPlot, JSON.parse(pcaPlotly).data, JSON.parse(pcaPlotly).layout);
+            }
+
+            const dailyPostsPlot = document.getElementById(`${subreddit}DailyPostsPlot`);
+            const dailyPostsPlotly = results[subreddit].daily_posts_plot_json;
+            if (dailyPostsPlotly) {
+                Plotly.newPlot(dailyPostsPlot, JSON.parse(dailyPostsPlotly).data, JSON.parse(dailyPostsPlotly).layout);
+            }
+
+
+
+            const correlationHeatmap = document.getElementById(`${subreddit}CorrelationHeatmap`);
+            const correlationHeatmapJson = results[subreddit].correlation_heatmap_json;
+            if (correlationHeatmapJson) {
+                Plotly.newPlot(correlationHeatmap, JSON.parse(correlationHeatmapJson).data, JSON.parse(correlationHeatmapJson).layout);
+            }
+        }
+
+        function moveCarousel(carouselId, direction) {
+            const carousel = document.getElementById(carouselId);
+            const itemWidth = carousel.querySelector('.carousel-item').offsetWidth;
+            carousel.scrollBy({ left: itemWidth * direction, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>

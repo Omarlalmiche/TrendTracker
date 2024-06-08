@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style2.css') }}">
+    <title>Profile</title>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-left">
+            <a href="{{ url_for('home') }}" class="navbar-logo">App Suivi Tendance</a>
+        </div>
+        <div class="navbar-right">
+            <a href="{{ url_for('home') }}" class="navbar-link">Home</a>
+            <a href="#" class="navbar-link">Settings</a>
+            <a href="{{ url_for('logout') }}" class="navbar-link">Logout</a>
+        </div>
+    </nav>
+
+    <!-- Profile Interface -->
+    <main class="main">
+        <h1 class="description-title">Interface Profile</h1>
+        <div class="profile-container">
+            <form method="post" action="{{ url_for('update_profile') }}">
+                <div class="profile-field">
+                    <label for="last_name">Nom:</label>
+                    <input type="text" id="last_name" name="last_name" value="dupont" required>
+                </div>
+                <div class="profile-field">
+                    <label for="first_name">Prénom:</label>
+                    <input type="text" id="first_name" name="first_name" value="Stéphane" required>
+                </div>
+                <div class="profile-field">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" value="StephaneDupont@gmail.com" required>
+                </div>
+                <button type="submit" class="submit-btn">Sauvegarder</button>
+            </form>
+
+            <!-- Change Password Form -->
+            <form method="post" action="{{ url_for('change_password') }}" class="password-form">
+                <h2>Changer le mot de passe</h2>
+                <div class="profile-field">
+                    <label for="current_password">Mot de passe actuel:</label>
+                    <input type="password" id="current_password" name="current_password" required>
+                </div>
+                <div class="profile-field">
+                    <label for="new_password">Nouveau mot de passe:</label>
+                    <input type="password" id="new_password" name="new_password" required>
+                </div>
+                <button type="submit" class="submit-btn">Changer le mot de passe</button>
+            </form>
+
+            <!-- Delete Account Form -->
+            <form method="post" action="{{ url_for('delete_account') }}" class="delete-account-form">
+                <h2>Supprimer le compte</h2>
+                <div class="profile-field">
+                    <label for="confirm_delete">Tapez "SUPPRIMER" pour confirmer:</label>
+                    <input type="text" id="confirm_delete" name="confirm_delete" required>
+                </div>
+                <button type="submit" class="delete-btn">Supprimer le compte</button>
+            </form>
+        </div>
+    </main>
+
+    <script src="{{ url_for('static', filename='js/animation.js') }}"></script>
+</body>
+</html>

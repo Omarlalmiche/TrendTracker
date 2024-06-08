@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage</title>
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/stylelog.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo-container">
+            <img src="../static/images/logo.webp" alt="App Suivi Tendances Logo" class="logo-image">
+            <span class="logo-text">Trend Tracker</span>
+        </div>
+        <nav class="nav">
+            <ul>
+                <li><a href="#">Portfolio</a></li>
+                <li><a href="#">Courses</a></li>
+                <li><a href="#">About us</a></li>
+                <li><a href="#">Contact us</a></li>
+                <li><a href="{{ url_for('connect') }}" class="button">S'inscrire</a></li>
+                <li><a href="{{ url_for('fund_me') }}" class="button">Fund Me</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="description-section">
+            <div class="description-container">
+                <h1 class="hero-title">Découvrez les tendances des médias sociaux</h1>
+                <p class="description">Votre solution unique pour suivre et analyser les tendances sur les réseaux sociaux.</p>                
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 App Suivi Tendances, Inc.</p>
+            <nav class="footer-nav">
+                <ul>
+                    <li><a href="#">Terms</a></li>
+                    <li><a href="#">Privacy</a></li>
+                </ul>
+            </nav>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/"><img src="/static/images/facebooklogo.png" alt="Facebook"></a>
+                <a href="https://x.com/home?lang=fr"><img src="/static/images/smalltwiter.png" alt="Twitter"></a>
+                <a href="https://www.linkedin.com/in/omar-lalmiche-64a266235/"><img src="/static/images/linkdin.png" alt="LinkedIn"></a>
+                <a href="https://github.com/Omarlalmiche/App-Web-Suivi-des-Tendances-M-dias-Sociaux-"><img src="/static/images/github.png" alt="GitHub"></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../static/js/animation.js"></script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+html {
+  background: #009FFF;
+  background: -webkit-linear-gradient(to right, #ec2F4B, #009FFF);
+  background: linear-gradient(to right, #ec2F4B, #009FFF);
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  background-image: url('../img/graph-paper.svg');
+  background-repeat: repeat;
+  padding: 20px;
+  box-sizing: border-box;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.nav li {
+  margin: 0 10px;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+.fundme-section {
+  width: 100%;
+  max-width: 1200px;
+  margin: 20px 0;
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 400px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  color: #fff;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.button {
+  padding: 10px 20px;
+  background: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background: #555;
+}

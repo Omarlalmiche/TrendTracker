@@ -1,0 +1,119 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+    color: black;
+}
+
+.container {
+    width: 90%;
+    margin: auto;
+    overflow: hidden;
+    padding-top: 20px;
+}
+
+.header {
+    background-color: white;
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo {
+    height: 50px;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: bold;
+    color: black;
+}
+
+.subreddit-section {
+    background: white;
+    margin: 20px 0;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.subreddit-section h2 {
+    text-align: center;
+    color: black;
+}
+
+.carousel-container {
+    position: relative;
+}
+
+.carousel {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 20px;
+}
+
+.carousel-item {
+    scroll-snap-align: start;
+    flex: none;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.2);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+.chart-description {
+    font-size: 14px;
+    color: black;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul li {
+    margin: 5px 0;
+}
+
+ul li strong {
+    color: black;
+}
+
+.download-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background-color: #34c759;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.download-btn:hover {
+    background-color: #2fa94d;
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fund Me</title>
+    <link rel="stylesheet" href="../static/css/stylefundme.css">
+</head>
+<body>
+    <header class="header">
+        <div class="logo">App Suivi Tendances</div>
+        <nav class="nav">
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="fundme-section">
+            <h1>Fund Me</h1>
+            <div class="content-container">
+                <form class="form-container">
+                    <div class="form-group">
+                        <label for="cardNumber">Card Number</label>
+                        <input type="text" id="cardNumber" name="cardNumber" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="expiryDate">Expiry Date</label>
+                        <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="cvv">CVV</label>
+                        <input type="text" id="cvv" name="cvv" required>
+                    </div>
+                    <button type="submit" class="button">Submit</button>
+                </form>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
