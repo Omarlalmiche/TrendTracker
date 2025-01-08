@@ -1,8 +1,6 @@
 # TrendTracker
 Le projet vise à concevoir et développer une application web innovante permettant aux utilisateurs de suivre les tendances des médias sociaux en temps réel. L'application collectera des données à partir de différentes plateformes de médias sociaux telles que Twitter, Facebook et Reddit, puis analysera ces données en utilisant des techniques d'Intelligence Artificielle (IA) pour identifier les tendances émergentes, les sujets chauds et les modèles d'application. l'engagement des utilisateurs.
 
-https://github.com/users/Omarlalmiche/projects/1
-
 Projet en cours de réalisation par :
 
 Lalmiche Omar Fonctionnalités proposé :
